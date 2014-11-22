@@ -3,19 +3,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="@dimen/add_setting_api_root_padding">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:layout_margin="4dp"
-        android:text="設定APIのURLを指定してください"/>
+        android:layout_margin="@dimen/add_setting_api_guide_margin"
+        android:text="@string/add_setting_api_guide"
+        android:textSize="@dimen/add_setting_api_guide_text_size" />
 
-    <EditText android:id="@+id/add_setting_api_edit_text"
+    <EditText
+        android:id="@+id/add_setting_api_edit_text"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:inputType="textUri" />
+        android:inputType="textUri">
+    </EditText>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,18 +25,22 @@
         android:orientation="horizontal">
 
         <Button
-            android:layout_width="0dp"
+            android:id="@+id/add_setting_api_button_positive"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="@dimen/add_setting_api_button_width"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/add_setting_api_button_margin"
             android:layout_weight="1"
-            android:layout_margin="8dp"
-            android:text="決定" />
+            android:text="@string/add_setting_api_button_positive" />
 
         <Button
-            android:layout_width="0dp"
+            android:id="@+id/add_setting_api_button_negative"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="@dimen/add_setting_api_button_width"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/add_setting_api_button_margin"
             android:layout_weight="1"
-            android:layout_margin="8dp"
-            android:text="キャンセル" />
+            android:text="@string/add_setting_api_button_negative" />
 
     </LinearLayout>
 

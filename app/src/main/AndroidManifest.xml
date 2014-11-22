@@ -23,7 +23,7 @@
 
         <activity
             android:name="jp.eno.android.mytopics.setting.AddSettingApiActivity"
-            android:label="@string/add_setting_label"/>
+            android:label="@string/add_setting_api_label"/>
     </application>
 
 </manifest>
