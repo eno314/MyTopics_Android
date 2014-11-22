@@ -32,6 +32,7 @@ public class AddSettingApiActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_setting_api);
 
+        // 最初からソフトウェアキーボードを表示させる
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
 
         mEditText = (EditText) findViewById(R.id.add_setting_api_edit_text);
