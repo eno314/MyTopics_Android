@@ -25,6 +25,8 @@ public class AddSettingApiActivity extends Activity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
 
         mEditText = (EditText) findViewById(R.id.add_setting_api_edit_text);
+        // カーソルの位置を最後尾にする
+        mEditText.setSelection(mEditText.getText().length());
 
         findViewById(R.id.add_setting_api_button_positive)
                 .setOnClickListener(createPositiveButtonCLickListener());

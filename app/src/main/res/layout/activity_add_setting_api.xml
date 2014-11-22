@@ -16,8 +16,8 @@
         android:id="@+id/add_setting_api_edit_text"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:inputType="textUri">
-    </EditText>
+        android:inputType="textUri"
+        android:text="@string/add_setting_api_default_text" />
 
     <LinearLayout
         android:layout_width="match_parent"
