@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- main -->
+    <color name="main_tab_background">#f1f4f6</color>
+    <color name="main_tab_divider">#d9dde3</color>
+
     <!-- setting -->
     <color name="setting_list_border_background">#c0c6cf</color>
 </resources>
