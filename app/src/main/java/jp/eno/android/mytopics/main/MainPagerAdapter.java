@@ -1,4 +1,4 @@
-package jp.eno.android.mytopics;
+package jp.eno.android.mytopics.main;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

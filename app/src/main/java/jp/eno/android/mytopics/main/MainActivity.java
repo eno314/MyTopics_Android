@@ -1,15 +1,13 @@
-package jp.eno.android.mytopics;
+package jp.eno.android.mytopics.main;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import jp.eno.android.mytopics.R;
 import jp.eno.android.mytopics.setting.AddSettingApiActivity;
-import jp.eno.android.mytopics.setting.SettingListFragment;
 import jp.eno.android.mytopicslibrary.layout.SlidingTabLayout;
 
 
