@@ -1,13 +1,14 @@
-package jp.eno.android.mytopics;
+package jp.eno.android.mytopics.main;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
+import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import jp.eno.android.mytopics.R;
 import jp.eno.android.mytopics.setting.AddSettingApiActivity;
-import jp.eno.android.mytopics.setting.SettingListFragment;
+import jp.eno.android.mytopicslibrary.layout.SlidingTabLayout;
 
 
 public class MainActivity extends FragmentActivity {
@@ -17,12 +18,18 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        final SlidingTabLayout tabLayout = (SlidingTabLayout) findViewById(R.id.main_tab);
+        tabLayout.setCustomTabView(R.layout.layout_main_tab, R.id.main_tab_text);
+        tabLayout.setViewPager(createViewPager());
+
+        /*
         final FragmentManager fragmentManager = getSupportFragmentManager();
         if (savedInstanceState == null) {
             fragmentManager.beginTransaction()
                     .add(R.id.main_list, new SettingListFragment())
                     .commit();
         }
+        */
     }
 
 
@@ -42,5 +49,12 @@ public class MainActivity extends FragmentActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private ViewPager createViewPager() {
+        final ViewPager pager = (ViewPager) findViewById(R.id.main_view_pager);
+        pager.setAdapter(new MainPagerAdapter(getSupportFragmentManager()));
+
+        return pager;
     }
 }
