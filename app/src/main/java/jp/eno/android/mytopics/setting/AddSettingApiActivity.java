@@ -25,9 +25,21 @@ import jp.eno.android.mytopicslibrary.volley.VolleyQueue;
 /**
  * Created by eno314 on 2014/11/17.
  */
-public class AddSettingApiActivity extends FragmentActivity {
+public class AddSettingApiActivity extends FragmentActivity
+        implements ConfirmAddSettingApiDialog.Listener {
 
+    static final int REQUEST_CODE_CONFIRM_DIALOG = 0;
+    static final int RESULT_CODE_CLICK_POSITIVE = 0;
+
+    /**
+     * APIのURLの入力用EditText
+     */
     private EditText mEditText;
+
+    /**
+     * 入力したAPIからのレスポンスをパースしたものを置く場所
+     */
+    private ApiList mReceivedApiList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +58,22 @@ public class AddSettingApiActivity extends FragmentActivity {
 
         findViewById(R.id.add_setting_api_button_negative)
                 .setOnClickListener(createNegativeButtonClickListener());
+    }
+
+    /**
+     * ダイアログが消えた時のコールバック
+     *
+     * @param isClickPositiveButton ポジティブボタンを押したかどうかのフラグ
+     */
+    @Override
+    public void onDismissDialog(boolean isClickPositiveButton) {
+        if (isClickPositiveButton) {
+            showMessage("決定ボタン押された");
+        } else {
+            showMessage("キャンセル押された");
+        }
+
+        mReceivedApiList = null;
     }
 
     private View.OnClickListener createPositiveButtonCLickListener() {
@@ -85,7 +113,7 @@ public class AddSettingApiActivity extends FragmentActivity {
                 .setListener(new Response.Listener<ApiList>() {
                     @Override
                     public void onResponse(ApiList response) {
-                        showMessage(response.name);
+                        onReceiveResponse(response);
                     }
                 })
                 .setErrorListener(new Response.ErrorListener() {
@@ -97,10 +125,15 @@ public class AddSettingApiActivity extends FragmentActivity {
                 .build();
     }
 
+    private void onReceiveResponse(ApiList apiList) {
+        mReceivedApiList = apiList;
+
+        final ConfirmAddSettingApiDialog dialog = ConfirmAddSettingApiDialog.newInstance(apiList.name);
+        dialog.show(getSupportFragmentManager(), null);
+    }
+
     private void showMessage(String message) {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
-        DialogFragment fragment = new ConfirmAddSettingApiDialog();
-        fragment.show(getSupportFragmentManager(), null);
     }
 
     /**
@@ -111,35 +144,5 @@ public class AddSettingApiActivity extends FragmentActivity {
     public static void start(Activity activity) {
         final Intent intent = new Intent(activity, AddSettingApiActivity.class);
         activity.startActivity(intent);
-    }
-
-    public static class ConfirmAddSettingApiDialog extends DialogFragment {
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            final String positiveButtonText = getString(R.string.add_setting_api_button_positive);
-            final String negativeButtonText = getString(R.string.add_setting_api_button_negative);
-
-            builder.setTitle(getString(R.string.add_setting_api_dialog_title))
-                    .setMessage(createMessage("ねこ"))
-                    .setPositiveButton(positiveButtonText, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                        }
-                    })
-                    .setNegativeButton(negativeButtonText, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            // do nothing
-                        }
-                    });
-            return builder.create();
-        }
-
-        private String createMessage(String apiName) {
-            final String messageFormat = getString(R.string.add_setting_api_dialog_message_format);
-            return String.format(messageFormat, apiName);
-        }
     }
 }
