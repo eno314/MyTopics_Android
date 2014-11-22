@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">ぼくとぴ</string>
+
+    <!-- main -->
     <string name="main_action_add_setting">設定APIの追加</string>
+
+    <!-- setting -->
+    <string name="add_setting_label">APIの追加</string>
 </resources>

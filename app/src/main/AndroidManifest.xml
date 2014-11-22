@@ -18,8 +18,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name="jp.eno.android.mytopics.apilist.ApiListActivity" />
-        <activity android:name="jp.eno.android.mytopics.setting.AddSettingApiActivity" />
+
+        <activity
+            android:name="jp.eno.android.mytopics.setting.AddSettingApiActivity"
+            android:label="@string/add_setting_label"/>
     </application>
 
 </manifest>
