@@ -1,8 +1,13 @@
 package jp.eno.android.mytopics.setting;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
@@ -20,10 +25,7 @@ import jp.eno.android.mytopicslibrary.volley.VolleyQueue;
 /**
  * Created by eno314 on 2014/11/17.
  */
-public class AddSettingApiActivity extends Activity {
-
-    private static final String MESSAGE_TEXT_EMPTY = "URLを入力後に決定ボタンを押してください";
-    private static final String MESSAGE_FAILED_REQUEST = "APIリクエストに失敗しました。通信状態や入力値を確認してください";
+public class AddSettingApiActivity extends FragmentActivity {
 
     private EditText mEditText;
 
@@ -71,7 +73,7 @@ public class AddSettingApiActivity extends Activity {
         final String editedText = mEditText.getText().toString();
 
         if (TextUtils.isEmpty(editedText)) {
-            showMessage(MESSAGE_TEXT_EMPTY);
+            showMessage(getString(R.string.add_setting_api_message_text_empty));
             return;
         }
 
@@ -89,7 +91,7 @@ public class AddSettingApiActivity extends Activity {
                 .setErrorListener(new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        showMessage(MESSAGE_FAILED_REQUEST);
+                        showMessage(getString(R.string.add_setting_api_message_request_failed));
                     }
                 })
                 .build();
@@ -97,6 +99,8 @@ public class AddSettingApiActivity extends Activity {
 
     private void showMessage(String message) {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+        DialogFragment fragment = new ConfirmAddSettingApiDialog();
+        fragment.show(getSupportFragmentManager(), null);
     }
 
     /**
@@ -107,5 +111,35 @@ public class AddSettingApiActivity extends Activity {
     public static void start(Activity activity) {
         final Intent intent = new Intent(activity, AddSettingApiActivity.class);
         activity.startActivity(intent);
+    }
+
+    public static class ConfirmAddSettingApiDialog extends DialogFragment {
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            final String positiveButtonText = getString(R.string.add_setting_api_button_positive);
+            final String negativeButtonText = getString(R.string.add_setting_api_button_negative);
+
+            builder.setTitle(getString(R.string.add_setting_api_dialog_title))
+                    .setMessage(createMessage("ねこ"))
+                    .setPositiveButton(positiveButtonText, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    })
+                    .setNegativeButton(negativeButtonText, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // do nothing
+                        }
+                    });
+            return builder.create();
+        }
+
+        private String createMessage(String apiName) {
+            final String messageFormat = getString(R.string.add_setting_api_dialog_message_format);
+            return String.format(messageFormat, apiName);
+        }
     }
 }
