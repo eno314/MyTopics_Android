@@ -1,0 +1,25 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!-- api_list -->
+    <dimen name="api_list_padding">4dp</dimen>
+
+    <!-- setting -->
+    <dimen name="setting_list_cell_horizontal_padding">16dp</dimen>
+    <dimen name="setting_list_cell_vertical_padding">8dp</dimen>
+    <dimen name="setting_list_cell_text_margin">16dp</dimen>
+    <dimen name="setting_list_cell_text_size">18sp</dimen>
+    <dimen name="setting_list_cell_card_radius">4dp</dimen>
+
+    <!-- entry -->
+    <dimen name="entry_cell_horizontal_padding">16dp</dimen>
+    <dimen name="entry_cell_vertical_padding">8dp</dimen>
+    <dimen name="entry_cell_image_width">97dp</dimen>
+    <dimen name="entry_cell_image_height">73dp</dimen>
+    <dimen name="entry_cell_image_margin_right">8dp</dimen>
+    <dimen name="entry_cell_text_size">16sp</dimen>
+    <dimen name="entry_cell_card_margin">8dp</dimen>
+    <dimen name="entry_cell_card_radius">4dp</dimen>
+</resources>
