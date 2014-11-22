@@ -21,15 +21,6 @@ public class MainActivity extends FragmentActivity {
         final SlidingTabLayout tabLayout = (SlidingTabLayout) findViewById(R.id.main_tab);
         tabLayout.setCustomTabView(R.layout.layout_main_tab, R.id.main_tab_text);
         tabLayout.setViewPager(createViewPager());
-
-        /*
-        final FragmentManager fragmentManager = getSupportFragmentManager();
-        if (savedInstanceState == null) {
-            fragmentManager.beginTransaction()
-                    .add(R.id.main_list, new SettingListFragment())
-                    .commit();
-        }
-        */
     }
 
 
