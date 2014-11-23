@@ -9,7 +9,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 import jp.eno.android.mytopicslibrary.model.ApiList;
-import jp.eno.android.mytopicslibrary.model.MyApi;
+import jp.eno.android.mytopicslibrary.model.EntryApi;
 
 /**
  * Created by eno314 on 2014/11/16.
@@ -63,17 +63,17 @@ public class ApiListParser extends Parser<ApiList> {
         return apiList;
     }
 
-    private ArrayList<MyApi> parseApiList(JSONArray responseApiList) throws JSONException {
-        final ArrayList<MyApi> myApiList = new ArrayList<MyApi>();
+    private ArrayList<EntryApi> parseApiList(JSONArray responseApiList) throws JSONException {
+        final ArrayList<EntryApi> myApiList = new ArrayList<EntryApi>();
 
         for (int i = 0; i < responseApiList.length(); i++) {
             final JSONObject responseApiInfo = responseApiList.getJSONObject(i);
 
-            final MyApi myApi = new MyApi();
-            myApi.name = responseApiInfo.getString(ELEMENT_NAME);
-            myApi.url = responseApiInfo.getString(ELEMENT_URL);
+            final EntryApi entryApi = new EntryApi();
+            entryApi.name = responseApiInfo.getString(ELEMENT_NAME);
+            entryApi.url = responseApiInfo.getString(ELEMENT_URL);
 
-            myApiList.add(myApi);
+            myApiList.add(entryApi);
         }
 
         return myApiList;

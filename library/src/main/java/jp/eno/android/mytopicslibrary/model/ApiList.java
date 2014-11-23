@@ -17,7 +17,7 @@ public class ApiList implements RequestResponseModel {
     /**
      * 自作APIのリスト
      */
-    public ArrayList<MyApi> list;
+    public ArrayList<EntryApi> list;
 
     @Override
     public boolean isValid() {
@@ -30,7 +30,7 @@ public class ApiList implements RequestResponseModel {
             return false;
         }
 
-        for (MyApi api : list) {
+        for (EntryApi api : list) {
             // 1件でも無効なデータがあればエラー扱い
             if (!api.isValid()) {
                 return false;

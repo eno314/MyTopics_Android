@@ -69,8 +69,6 @@ public class AddSettingApiActivity extends FragmentActivity
     public void onDismissDialog(boolean isClickPositiveButton) {
         if (isClickPositiveButton) {
             showMessage("決定ボタン押された");
-        } else {
-            showMessage("キャンセル押された");
         }
 
         mReceivedApiList = null;
