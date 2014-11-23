@@ -17,7 +17,7 @@ public class MyTopicsOpenHelper extends SQLiteOpenHelper {
     private static final String SQL_SETTING_API_CREATE =
             "CREATE TABLE IF NOT EXISTS " + SettingApiColumns.TABLE_NAME + " (" +
                     SettingApiColumns._ID + " INTEGER PRIMARY KEY," +
-                    SettingApiColumns.COLUMN_URL + " TEXT NOT NULL, " +
+                    SettingApiColumns.COLUMN_URL + " TEXT NOT NULL UNIQUE," +
                     SettingApiColumns.COLUMN_NAME + " TEXT NOT NULL);";
 
     private static final String SQL_ENTRY_API_CREATE =

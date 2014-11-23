@@ -3,8 +3,10 @@ package jp.eno.android.mytopics.setting;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
@@ -18,6 +20,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
 import jp.eno.android.mytopics.R;
+import jp.eno.android.mytopicslibrary.database.MyTopicsOpenHelper;
+import jp.eno.android.mytopicslibrary.database.SettingApiColumns;
 import jp.eno.android.mytopicslibrary.model.ApiList;
 import jp.eno.android.mytopicslibrary.request.ApiListRequest;
 import jp.eno.android.mytopicslibrary.volley.VolleyQueue;
@@ -67,8 +71,35 @@ public class AddSettingApiActivity extends FragmentActivity
      */
     @Override
     public void onDismissDialog(boolean isClickPositiveButton) {
+        if (mReceivedApiList == null) {
+            showMessage("illegal statement");
+            return;
+        }
+
         if (isClickPositiveButton) {
-            showMessage("決定ボタン押された");
+            // TODO 非同期化＋コンテントプロバイダーを使う
+            MyTopicsOpenHelper helper = new MyTopicsOpenHelper(getApplicationContext());
+            SQLiteDatabase db = helper.getWritableDatabase();
+            db.beginTransaction();
+
+            try {
+                ContentValues values = new ContentValues();
+                values.put(SettingApiColumns.COLUMN_NAME, mReceivedApiList.name);
+                values.put(SettingApiColumns.COLUMN_URL, mEditText.getText().toString());
+
+                long rowId = db.insert(SettingApiColumns.TABLE_NAME, null, values);
+
+                if (rowId == -1) {
+                    showMessage("登録に失敗しました。既に同じAPIが登録されていませんか？");
+                } else {
+                    showMessage("登録が完了しました。");
+                }
+
+                db.setTransactionSuccessful();
+            } finally {
+                db.endTransaction();
+                db.close();
+            }
         }
 
         mReceivedApiList = null;
