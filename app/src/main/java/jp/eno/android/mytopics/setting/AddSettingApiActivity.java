@@ -20,9 +20,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
 import jp.eno.android.mytopics.R;
+import jp.eno.android.mytopicslibrary.database.EntryApiColumns;
 import jp.eno.android.mytopicslibrary.database.MyTopicsOpenHelper;
 import jp.eno.android.mytopicslibrary.database.SettingApiColumns;
 import jp.eno.android.mytopicslibrary.model.ApiList;
+import jp.eno.android.mytopicslibrary.model.EntryApi;
 import jp.eno.android.mytopicslibrary.request.ApiListRequest;
 import jp.eno.android.mytopicslibrary.volley.VolleyQueue;
 
@@ -77,32 +79,56 @@ public class AddSettingApiActivity extends FragmentActivity
         }
 
         if (isClickPositiveButton) {
-            // TODO 非同期化＋コンテントプロバイダーを使う
-            MyTopicsOpenHelper helper = new MyTopicsOpenHelper(getApplicationContext());
-            SQLiteDatabase db = helper.getWritableDatabase();
-            db.beginTransaction();
-
-            try {
-                ContentValues values = new ContentValues();
-                values.put(SettingApiColumns.COLUMN_NAME, mReceivedApiList.name);
-                values.put(SettingApiColumns.COLUMN_URL, mEditText.getText().toString());
-
-                long rowId = db.insert(SettingApiColumns.TABLE_NAME, null, values);
-
-                if (rowId == -1) {
-                    showMessage("登録に失敗しました。既に同じAPIが登録されていませんか？");
-                } else {
-                    showMessage("登録が完了しました。");
-                }
-
-                db.setTransactionSuccessful();
-            } finally {
-                db.endTransaction();
-                db.close();
-            }
+            execDbInsert(mEditText.getText().toString(), mReceivedApiList);
         }
 
         mReceivedApiList = null;
+    }
+
+    private void execDbInsert(String url, ApiList apiList) {
+        // TODO 非同期化＋コンテントプロバイダーを使う
+        MyTopicsOpenHelper helper = new MyTopicsOpenHelper(getApplicationContext());
+        SQLiteDatabase db = helper.getWritableDatabase();
+        db.beginTransaction();
+
+        try {
+
+            final long rowId = insertSettingApi(db, url, apiList.name);
+
+            if (rowId == -1) {
+                showMessage("登録に失敗しました。既に同じAPIが登録されていませんか？");
+                return;
+            }
+
+            for (EntryApi entryApi : mReceivedApiList.list) {
+                if (insertEntryApi(db, entryApi, rowId) == -1) {
+                    showMessage("登録に失敗しました。");
+                    return;
+                }
+            }
+
+            db.setTransactionSuccessful();
+        } finally {
+            db.endTransaction();
+            db.close();
+        }
+    }
+
+    private long insertSettingApi(SQLiteDatabase db, String url, String name) {
+        final ContentValues values = new ContentValues();
+        values.put(SettingApiColumns.COLUMN_URL, url);
+        values.put(SettingApiColumns.COLUMN_NAME, name);
+
+        return db.insert(SettingApiColumns.TABLE_NAME, null, values);
+    }
+
+    private long insertEntryApi(SQLiteDatabase db, EntryApi entryApi, long settingApiId) {
+        final ContentValues values = new ContentValues();
+        values.put(EntryApiColumns.COLUMN_URL, entryApi.url);
+        values.put(EntryApiColumns.COLUMN_NAME, entryApi.name);
+        values.put(EntryApiColumns.COLUMN_SETTING_API_ID, settingApiId);
+
+        return db.insert(EntryApiColumns.TABLE_NAME, null, values);
     }
 
     private View.OnClickListener createPositiveButtonCLickListener() {
