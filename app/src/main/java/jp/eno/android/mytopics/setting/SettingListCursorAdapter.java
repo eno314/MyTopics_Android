@@ -16,13 +16,10 @@ import jp.eno.android.mytopics.R;
  */
 public class SettingListCursorAdapter extends CursorAdapter {
 
-    private static final int VIEW_TAG_SETTING_API = 0;
-    private static final int VIEW_TAG_HOLDER = 1;
-
     private final SettingListCellListener mListener;
 
-    public SettingListCursorAdapter(Context context, Cursor c, SettingListCellListener listener) {
-        super(context, c, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+    public SettingListCursorAdapter(Context context, SettingListCellListener listener) {
+        super(context, null, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
         mListener = listener;
     }
 
