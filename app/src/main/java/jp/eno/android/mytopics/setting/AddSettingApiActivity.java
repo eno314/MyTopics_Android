@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -84,37 +83,7 @@ public class AddSettingApiActivity extends FragmentActivity
         final long rowId = insertSettingApi(url, apiList.name);
         if (rowId < 0) {
             showMessage("登録に失敗しました。既に同じAPIが登録されていませんか？");
-            return;
         }
-
-        Log.d("AAAAA", "id " + rowId);
-        /*
-        MyTopicsOpenHelper helper = new MyTopicsOpenHelper(getApplicationContext());
-        SQLiteDatabase db = helper.getWritableDatabase();
-        db.beginTransaction();
-
-        try {
-
-            final long rowId = insertSettingApi(db, url, apiList.name);
-
-            if (rowId == -1) {
-                showMessage("登録に失敗しました。既に同じAPIが登録されていませんか？");
-                return;
-            }
-
-            for (EntryApi entryApi : mReceivedApiList.list) {
-                if (insertEntryApi(db, entryApi, rowId) == -1) {
-                    showMessage("登録に失敗しました。");
-                    return;
-                }
-            }
-
-            db.setTransactionSuccessful();
-        } finally {
-            db.endTransaction();
-            db.close();
-        }
-        */
     }
 
     private long insertSettingApi(String url, String name) {
@@ -125,15 +94,6 @@ public class AddSettingApiActivity extends FragmentActivity
         final Uri uri = getContentResolver().insert(SettingApiProvider.getContentUri(), values);
         return ContentUris.parseId(uri);
     }
-
-    /*
-    private void insertEntryApi(SQLiteDatabase db, EntryApi entryApi, long settingApiId) {
-        final ContentValues values = new ContentValues();
-        values.put(EntryApiColumns.COLUMN_URL, entryApi.url);
-        values.put(EntryApiColumns.COLUMN_NAME, entryApi.name);
-        values.put(EntryApiColumns.COLUMN_SETTING_API_ID, settingApiId);
-    }
-    */
 
     private View.OnClickListener createPositiveButtonCLickListener() {
         return new View.OnClickListener() {

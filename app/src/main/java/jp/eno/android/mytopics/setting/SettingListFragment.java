@@ -17,8 +17,16 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+
 import jp.eno.android.mytopics.R;
+import jp.eno.android.mytopics.apilist.ApiListActivity;
 import jp.eno.android.mytopicslibrary.database.SettingApiColumns;
+import jp.eno.android.mytopicslibrary.model.ApiList;
+import jp.eno.android.mytopicslibrary.request.ApiListRequest;
+import jp.eno.android.mytopicslibrary.volley.VolleyQueue;
 
 /**
  * 自分が入力した設定API一覧を表示するFragment
@@ -69,9 +77,30 @@ public class SettingListFragment extends Fragment
         return getActivity().getContentResolver();
     }
 
+    private RequestQueue getRequestQueue() {
+        return VolleyQueue.getQueue(getActivity().getApplicationContext());
+    }
+
+    private ApiListRequest buildRequest(String url) {
+        return new ApiListRequest.Builder(url)
+                .setListener(new Response.Listener<ApiList>() {
+                    @Override
+                    public void onResponse(ApiList response) {
+                        ApiListActivity.start(getActivity(), response);
+                    }
+                })
+                .setErrorListener(new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getActivity(), "設定APIのリクエストに失敗しました", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .build();
+    }
+
     @Override
     public void onClickCell(SettingApi settingApi) {
-        Log.d("AAAAA", "onClickCell : " + settingApi.name);
+        getRequestQueue().add(buildRequest(settingApi.url));
     }
 
     @Override
