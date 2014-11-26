@@ -1,16 +1,14 @@
 package jp.eno.android.mytopics.setting;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
+import android.content.ContentUris;
 import android.content.ContentValues;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -20,11 +18,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
 import jp.eno.android.mytopics.R;
-import jp.eno.android.mytopicslibrary.database.EntryApiColumns;
-import jp.eno.android.mytopicslibrary.database.MyTopicsOpenHelper;
 import jp.eno.android.mytopicslibrary.database.SettingApiColumns;
 import jp.eno.android.mytopicslibrary.model.ApiList;
-import jp.eno.android.mytopicslibrary.model.EntryApi;
 import jp.eno.android.mytopicslibrary.request.ApiListRequest;
 import jp.eno.android.mytopicslibrary.volley.VolleyQueue;
 
@@ -79,14 +74,21 @@ public class AddSettingApiActivity extends FragmentActivity
         }
 
         if (isClickPositiveButton) {
-            execDbInsert(mEditText.getText().toString(), mReceivedApiList);
+            execInsert(mEditText.getText().toString(), mReceivedApiList);
         }
 
         mReceivedApiList = null;
     }
 
-    private void execDbInsert(String url, ApiList apiList) {
-        // TODO 非同期化＋コンテントプロバイダーを使う
+    private void execInsert(String url, ApiList apiList) {
+        final long rowId = insertSettingApi(url, apiList.name);
+        if (rowId < 0) {
+            showMessage("登録に失敗しました。既に同じAPIが登録されていませんか？");
+            return;
+        }
+
+        Log.d("AAAAA", "id " + rowId);
+        /*
         MyTopicsOpenHelper helper = new MyTopicsOpenHelper(getApplicationContext());
         SQLiteDatabase db = helper.getWritableDatabase();
         db.beginTransaction();
@@ -112,24 +114,26 @@ public class AddSettingApiActivity extends FragmentActivity
             db.endTransaction();
             db.close();
         }
+        */
     }
 
-    private long insertSettingApi(SQLiteDatabase db, String url, String name) {
+    private long insertSettingApi(String url, String name) {
         final ContentValues values = new ContentValues();
         values.put(SettingApiColumns.COLUMN_URL, url);
         values.put(SettingApiColumns.COLUMN_NAME, name);
 
-        return db.insert(SettingApiColumns.TABLE_NAME, null, values);
+        final Uri uri = getContentResolver().insert(SettingApiProvider.getContentUri(), values);
+        return ContentUris.parseId(uri);
     }
 
-    private long insertEntryApi(SQLiteDatabase db, EntryApi entryApi, long settingApiId) {
+    /*
+    private void insertEntryApi(SQLiteDatabase db, EntryApi entryApi, long settingApiId) {
         final ContentValues values = new ContentValues();
         values.put(EntryApiColumns.COLUMN_URL, entryApi.url);
         values.put(EntryApiColumns.COLUMN_NAME, entryApi.name);
         values.put(EntryApiColumns.COLUMN_SETTING_API_ID, settingApiId);
-
-        return db.insert(EntryApiColumns.TABLE_NAME, null, values);
     }
+    */
 
     private View.OnClickListener createPositiveButtonCLickListener() {
         return new View.OnClickListener() {
