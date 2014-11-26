@@ -7,7 +7,7 @@ import java.io.Serializable;
 /**
  * Created by eno314 on 2014/11/16.
  */
-public class MyApi implements RequestResponseModel, Serializable {
+public class EntryApi implements RequestResponseModel, Serializable {
 
     /**
      * API名

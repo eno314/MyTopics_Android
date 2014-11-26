@@ -8,18 +8,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jp.eno.android.mytopics.entry.EntryFragment;
-import jp.eno.android.mytopicslibrary.model.MyApi;
+import jp.eno.android.mytopicslibrary.model.EntryApi;
 
 /**
  * Created by eno314 on 2014/11/17.
  */
 public class ApiListPagerAdapter extends FragmentPagerAdapter {
 
-    private List<MyApi> mMyApiList;
+    private List<EntryApi> mEntryApiList;
 
     public ApiListPagerAdapter(FragmentManager fm) {
         super(fm);
-        mMyApiList = new ArrayList<MyApi>();
+        mEntryApiList = new ArrayList<EntryApi>();
     }
 
     @Override
@@ -29,15 +29,15 @@ public class ApiListPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return mMyApiList.size();
+        return mEntryApiList.size();
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return mMyApiList.get(position).name;
+        return mEntryApiList.get(position).name;
     }
 
-    public void setSettingApiList(List<MyApi> apiList) {
-        mMyApiList = apiList;
+    public void setSettingApiList(List<EntryApi> apiList) {
+        mEntryApiList = apiList;
     }
 }

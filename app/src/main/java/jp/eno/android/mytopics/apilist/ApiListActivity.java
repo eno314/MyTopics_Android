@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 import jp.eno.android.mytopics.R;
 import jp.eno.android.mytopicslibrary.model.ApiList;
-import jp.eno.android.mytopicslibrary.model.MyApi;
+import jp.eno.android.mytopicslibrary.model.EntryApi;
 
 /**
  * Created by eno314 on 2014/11/16.
@@ -31,13 +31,13 @@ public class ApiListActivity extends FragmentActivity {
 
         setTitle(getIntent().getStringExtra(INTENT_DATA_KEY_NAME));
 
-        final ArrayList<MyApi> myApiList = (ArrayList<MyApi>)
+        final ArrayList<EntryApi> entryApiList = (ArrayList<EntryApi>)
                 getIntent().getSerializableExtra(INTENT_DATA_KEY_LIST);
 
         mAdapter = new ApiListPagerAdapter(getSupportFragmentManager());
-        mAdapter.setSettingApiList(myApiList);
+        mAdapter.setSettingApiList(entryApiList);
 
-        final ViewPager viewPager = (ViewPager)findViewById(R.id.api_list_pager);
+        final ViewPager viewPager = (ViewPager) findViewById(R.id.api_list_pager);
         viewPager.setAdapter(mAdapter);
 
         // タブの境界線設定
@@ -50,7 +50,7 @@ public class ApiListActivity extends FragmentActivity {
      * ApiListActivityに遷移するためのメソッド
      *
      * @param activity 起動元のアクティビティ
-     * @param apiList apiのリスト
+     * @param apiList  apiのリスト
      */
     public static void start(Activity activity, ApiList apiList) {
         final Intent intent = new Intent(activity, ApiListActivity.class);

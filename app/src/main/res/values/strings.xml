@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">ぼくとぴ</string>
+
+    <!-- main -->
     <string name="main_action_add_setting">設定APIの追加</string>
+
+    <!-- setting -->
+    <string name="setting_list_cell_delete_button">削除</string>
+    <string name="add_setting_api_label">APIの追加</string>
+    <string name="add_setting_api_guide">設定APIのURLを指定してください</string>
+    <string name="add_setting_api_button_positive">決定</string>
+    <string name="add_setting_api_button_negative">キャンセル</string>
+    <string name="add_setting_api_default_text">http://</string>
+    <string name="add_setting_api_message_text_empty">URLを入力後に決定ボタンを押してください。</string>
+    <string name="add_setting_api_message_request_failed">APIリクエストに失敗しました。通信状態や入力値を確認してください。</string>
+    <string name="add_setting_api_dialog_message_format">「%s」の設定APIを追加しますか？</string>
+    <string name="add_setting_api_dialog_title">登録確認</string>
 </resources>
