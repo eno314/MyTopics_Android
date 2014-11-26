@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import jp.eno.android.mytopics.R;
 import jp.eno.android.mytopicslibrary.database.MyTopicsOpenHelper;
@@ -67,6 +69,17 @@ public class SettingListFragment extends Fragment implements SettingListCellList
 
     @Override
     public void onClickDeleteButton(SettingApi settingApi) {
-        Log.d("AAAAA", "onClickDeleteButton : " + settingApi.name);
+        // 削除処理の実行
+        final Uri uri = SettingApiProvider.getContentUri();
+        final String selection = SettingApiColumns._ID + " = ?";
+        final String[] args = {
+                String.valueOf(settingApi.id)
+        };
+
+        final int deleteCount = getActivity().getContentResolver().delete(uri, selection, args);
+
+        if (deleteCount == 0) {
+            Toast.makeText(getActivity(), "削除に失敗しました", Toast.LENGTH_SHORT).show();
+        }
     }
 }
