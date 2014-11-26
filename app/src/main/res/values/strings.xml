@@ -6,6 +6,7 @@
     <string name="main_action_add_setting">設定APIの追加</string>
 
     <!-- setting -->
+    <string name="setting_list_cell_delete_button">削除</string>
     <string name="add_setting_api_label">APIの追加</string>
     <string name="add_setting_api_guide">設定APIのURLを指定してください</string>
     <string name="add_setting_api_button_positive">決定</string>

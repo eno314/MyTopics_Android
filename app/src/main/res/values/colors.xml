@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- common -->
+    <color name="common_text_dark">#212121</color>
+    <color name="common_text_warning">#f50057</color>
+
     <!-- main -->
     <color name="main_tab_background">#f1f4f6</color>
     <color name="main_tab_divider">#d9dde3</color>
