@@ -4,6 +4,7 @@
 
     <!-- main -->
     <string name="main_action_add_setting">設定APIの追加</string>
+    <string name="main_action_add_manual">APIを手動で追加</string>
 
     <!-- add common -->
     <string name="add_common_label">APIの追加</string>

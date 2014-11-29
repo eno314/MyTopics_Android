@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import jp.eno.android.mytopics.R;
+import jp.eno.android.mytopics.manual.AddManualActivity;
 import jp.eno.android.mytopics.setting.AddSettingApiActivity;
 import jp.eno.android.mytopicslibrary.layout.SlidingTabLayout;
 
@@ -36,6 +37,11 @@ public class MainActivity extends FragmentActivity {
 
         if (id == R.id.action_add_setting_api) {
             AddSettingApiActivity.start(this);
+            return true;
+        }
+
+        if (id == R.id.action_add_manual) {
+            AddManualActivity.start(this);
             return true;
         }
 
