@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 
 import jp.eno.android.mytopics.R;
-import jp.eno.android.mytopicslibrary.model.ApiList;
 
 /**
  * Created by eno314 on 2014/11/23.
@@ -26,8 +25,8 @@ public class ConfirmAddSettingApiDialog extends DialogFragment {
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         final String message = createMessage(getArguments().getString(ARGUMENT_API_NAME));
-        final String positiveButtonText = getString(R.string.add_setting_api_button_positive);
-        final String negativeButtonText = getString(R.string.add_setting_api_button_negative);
+        final String positiveButtonText = getString(R.string.add_common_button_positive);
+        final String negativeButtonText = getString(R.string.add_common_button_negative);
 
         builder.setTitle(getString(R.string.add_setting_api_dialog_title))
                 .setMessage(message)
@@ -85,6 +84,7 @@ public class ConfirmAddSettingApiDialog extends DialogFragment {
 
         /**
          * ダイアログのボタンをおした時のリスナー
+         *
          * @param isClickPositiveButton ポジティブボタンを押したかどうかのフラグ
          */
         void onDismissDialog(boolean isClickPositiveButton);

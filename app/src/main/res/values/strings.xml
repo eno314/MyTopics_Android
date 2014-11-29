@@ -5,15 +5,24 @@
     <!-- main -->
     <string name="main_action_add_setting">設定APIの追加</string>
 
+    <!-- add common -->
+    <string name="add_common_label">APIの追加</string>
+    <string name="add_common_button_positive">決定</string>
+    <string name="add_common_button_negative">キャンセル</string>
+    <string name="add_common_default_text_url">http://</string>
+    <string name="add_common_message_request_failed">APIリクエストに失敗しました。通信状態や入力値を確認してください。</string>
+
     <!-- setting -->
     <string name="setting_list_cell_delete_button">削除</string>
-    <string name="add_setting_api_label">APIの追加</string>
-    <string name="add_setting_api_guide">設定APIのURLを指定してください</string>
-    <string name="add_setting_api_button_positive">決定</string>
-    <string name="add_setting_api_button_negative">キャンセル</string>
-    <string name="add_setting_api_default_text">http://</string>
+    <string name="add_setting_api_guide">設定APIのURLを入力してください</string>
     <string name="add_setting_api_message_text_empty">URLを入力後に決定ボタンを押してください。</string>
-    <string name="add_setting_api_message_request_failed">APIリクエストに失敗しました。通信状態や入力値を確認してください。</string>
     <string name="add_setting_api_dialog_message_format">「%s」の設定APIを追加しますか？</string>
     <string name="add_setting_api_dialog_title">登録確認</string>
+    <string name="add_setting_api_message_failed_insert">登録に失敗しました。既に同じAPIが登録されていませんか？</string>
+    <string name="add_setting_api_message_success_insert">登録しました。</string>
+
+    <!-- manual -->
+    <string name="add_manual_guide_name">API名を入力してください</string>
+    <string name="add_manual_guide_url">APIのURLを入力してください</string>
+    <string name="add_manual_message_empty">URLとAPI名を入力後に決定ボタンを押してください。</string>
 </resources>

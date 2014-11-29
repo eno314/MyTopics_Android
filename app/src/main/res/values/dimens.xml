@@ -16,11 +16,13 @@
     <dimen name="setting_list_cell_text_margin">16dp</dimen>
     <dimen name="setting_list_cell_text_size">18sp</dimen>
     <dimen name="setting_list_cell_card_radius">4dp</dimen>
-    <dimen name="add_setting_api_root_padding">16dp</dimen>
-    <dimen name="add_setting_api_guide_text_size">18sp</dimen>
-    <dimen name="add_setting_api_guide_margin">4dp</dimen>
-    <dimen name="add_setting_api_button_margin">8dp</dimen>
-    <dimen name="add_setting_api_button_width">0dp</dimen>
+
+    <!-- add -->
+    <dimen name="add_common_root_padding">16dp</dimen>
+    <dimen name="add_common_guide_text_size">18sp</dimen>
+    <dimen name="add_common_guide_margin">4dp</dimen>
+    <dimen name="add_common_button_margin">8dp</dimen>
+    <dimen name="add_common_button_width">0dp</dimen>
 
     <!-- entry -->
     <dimen name="entry_cell_horizontal_padding">16dp</dimen>
