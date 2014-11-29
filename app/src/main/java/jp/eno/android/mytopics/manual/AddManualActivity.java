@@ -9,8 +9,17 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+
+import java.util.List;
 
 import jp.eno.android.mytopics.R;
+import jp.eno.android.mytopicslibrary.model.Entry;
+import jp.eno.android.mytopicslibrary.request.EntryRequest;
 import jp.eno.android.mytopicslibrary.volley.VolleyQueue;
 
 /**
@@ -70,8 +79,37 @@ public class AddManualActivity extends FragmentActivity {
      * 決定ボタンをおした時の処理
      */
     private void onClickPositiveButton() {
-        Log.d("BBBBB", "url : " + mEditUrlText.getText().toString());
-        Log.d("BBBBB", "name : " + mEditNameText.getText().toString());
+        final String url = mEditUrlText.getText().toString();
+        final String name = mEditNameText.getText().toString();
+
+        if (TextUtils.isEmpty(url) || TextUtils.isEmpty(name)) {
+            final String message = getResources().getString(R.string.add_manual_message_empty);
+            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+        }
+
+        getQueue().add(buildRequest(url));
+    }
+
+    private RequestQueue getQueue() {
+        return VolleyQueue.getQueue(getApplicationContext());
+    }
+
+    private EntryRequest buildRequest(String url) {
+        return new EntryRequest.Builder(url)
+                .setListener(new Response.Listener<List<Entry>>() {
+                    @Override
+                    public void onResponse(List<Entry> response) {
+                        Toast.makeText(getApplicationContext(), "リクエスト成功", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setErrorListener(new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        final String message = getResources()
+                                .getString(R.string.add_common_message_request_failed);
+                        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+                    }
+                }).build();
     }
 
     /**
