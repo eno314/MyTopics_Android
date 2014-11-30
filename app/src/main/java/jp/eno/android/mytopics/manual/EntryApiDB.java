@@ -1,43 +1,42 @@
-package jp.eno.android.mytopics.setting;
+package jp.eno.android.mytopics.manual;
 
 import android.database.Cursor;
 import android.text.TextUtils;
 
-import jp.eno.android.mytopicslibrary.database.SettingApiColumns;
+import jp.eno.android.mytopicslibrary.database.EntryApiColumns;
 
 /**
- * Created by eno314 on 2014/11/16.
+ * Created by eno314 on 2014/11/30.
  */
-public class SettingApi {
+public class EntryApiDB {
 
-    /**
-     * DBのID
-     */
     public long id;
-    /**
-     * リストに表示するAPI名
-     */
+
     public String name;
 
-    /**
-     * APIのurl
-     */
     public String url;
 
-    public SettingApi(Cursor cursor) {
-        int index = cursor.getColumnIndex(SettingApiColumns._ID);
+    public long settingApiId;
+
+    public EntryApiDB(Cursor cursor) {
+        int index = cursor.getColumnIndex(EntryApiColumns._ID);
         if (index >= 0) {
             id = cursor.getLong(index);
         }
 
-        index = cursor.getColumnIndex(SettingApiColumns.COLUMN_NAME);
+        index = cursor.getColumnIndex(EntryApiColumns.COLUMN_NAME);
         if (index >= 0) {
             name = cursor.getString(index);
         }
 
-        index = cursor.getColumnIndex(SettingApiColumns.COLUMN_URL);
+        index = cursor.getColumnIndex(EntryApiColumns.COLUMN_URL);
         if (index >= 0) {
             url = cursor.getString(index);
+        }
+
+        index = cursor.getColumnIndex(EntryApiColumns.COLUMN_SETTING_API_ID);
+        if (index >= 0) {
+            settingApiId = cursor.getLong(index);
         }
     }
 

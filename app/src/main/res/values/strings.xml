@@ -23,6 +23,7 @@
     <string name="add_setting_api_message_success_insert">登録しました。</string>
 
     <!-- manual -->
+    <string name="manual_cell_delete_button">削除</string>
     <string name="add_manual_guide_name">API名を入力してください</string>
     <string name="add_manual_guide_url">APIのURLを入力してください</string>
     <string name="add_manual_message_empty">URLとAPI名を入力後に決定ボタンを押してください。</string>
