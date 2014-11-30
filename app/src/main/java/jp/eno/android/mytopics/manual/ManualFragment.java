@@ -3,6 +3,7 @@ package jp.eno.android.mytopics.manual;
 import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -12,8 +13,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import jp.eno.android.mytopics.R;
+import jp.eno.android.mytopicslibrary.database.EntryApiColumns;
 import jp.eno.android.mytopicslibrary.provider.EntryApiProvider;
 
 /**
@@ -79,7 +82,18 @@ public class ManualFragment extends Fragment
 
     @Override
     public void onClickDeleteButton(EntryApiDB entryApi) {
+        // 削除処理の実行
+        final Uri uri = EntryApiProvider.getContentUri();
+        final String selection = EntryApiColumns._ID + " = ?";
+        final String[] args = {
+                String.valueOf(entryApi.id)
+        };
 
+        final int deleteCount = getActivity().getContentResolver().delete(uri, selection, args);
+
+        if (deleteCount == 0) {
+            Toast.makeText(getActivity(), "削除に失敗しました", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private Context getContext() {
