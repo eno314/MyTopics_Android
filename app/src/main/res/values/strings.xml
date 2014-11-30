@@ -26,4 +26,8 @@
     <string name="add_manual_guide_name">API名を入力してください</string>
     <string name="add_manual_guide_url">APIのURLを入力してください</string>
     <string name="add_manual_message_empty">URLとAPI名を入力後に決定ボタンを押してください。</string>
+    <string name="add_manual_message_failed_insert">登録に失敗しました。</string>
+    <string name="add_manual_message_success_insert">登録しました。</string>
+    <string name="add_manual_loading_title">API登録処理</string>
+    <string name="add_manual_loading_message">ローディング...</string>
 </resources>

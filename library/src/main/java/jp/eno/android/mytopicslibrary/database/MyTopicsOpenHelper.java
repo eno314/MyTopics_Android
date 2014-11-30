@@ -25,7 +25,7 @@ public class MyTopicsOpenHelper extends SQLiteOpenHelper {
                     EntryApiColumns._ID + " INTEGER PRIMARY KEY," +
                     EntryApiColumns.COLUMN_URL + " TEXT NOT NULL, " +
                     EntryApiColumns.COLUMN_NAME + " TEXT NOT NULL, " +
-                    EntryApiColumns.COLUMN_SETTING_API_ID + " INTEGER NOT NULL);";
+                    EntryApiColumns.COLUMN_SETTING_API_ID + " INTEGER);";
 
     private static final String SQL_SETTING_API_DROP =
             "DROP TABLE IF EXISTS " + SettingApiColumns.TABLE_NAME + ";";

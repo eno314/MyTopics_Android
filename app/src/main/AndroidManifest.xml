@@ -31,7 +31,12 @@
 
         <provider
             android:name="jp.eno.android.mytopicslibrary.provider.SettingApiProvider"
-            android:authorities="jp.eno.android.mytopicslibrary.provider"
+            android:authorities="jp.eno.android.mytopicslibrary.provider.settingapiprovider"
+            android:exported="false" />
+
+        <provider
+            android:name="jp.eno.android.mytopicslibrary.provider.EntryApiProvider"
+            android:authorities="jp.eno.android.mytopicslibrary.provider.entryapiprovider"
             android:exported="false" />
     </application>
 

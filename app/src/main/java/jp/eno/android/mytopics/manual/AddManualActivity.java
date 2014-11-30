@@ -1,7 +1,11 @@
 package jp.eno.android.mytopics.manual;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
@@ -17,7 +21,9 @@ import com.android.volley.VolleyError;
 import java.util.List;
 
 import jp.eno.android.mytopics.R;
+import jp.eno.android.mytopicslibrary.database.EntryApiColumns;
 import jp.eno.android.mytopicslibrary.model.Entry;
+import jp.eno.android.mytopicslibrary.provider.EntryApiProvider;
 import jp.eno.android.mytopicslibrary.request.EntryRequest;
 import jp.eno.android.mytopicslibrary.volley.VolleyQueue;
 
@@ -35,6 +41,11 @@ public class AddManualActivity extends FragmentActivity {
      * API名入力用のEditText
      */
     private EditText mEditNameText;
+
+    /**
+     * プログレスダイアログ
+     */
+    private ProgressDialog mProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +65,12 @@ public class AddManualActivity extends FragmentActivity {
 
         findViewById(R.id.add_manual_button_negative)
                 .setOnClickListener(createNegativeButtonClickListener());
+
+        mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.setTitle(getString(R.string.add_manual_loading_title));
+        mProgressDialog.setMessage(getString(R.string.add_manual_loading_message));
+        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        mProgressDialog.setCancelable(false);
     }
 
     private View.OnClickListener createPositiveButtonCLickListener() {
@@ -82,11 +99,13 @@ public class AddManualActivity extends FragmentActivity {
         final String name = mEditNameText.getText().toString();
 
         if (TextUtils.isEmpty(url) || TextUtils.isEmpty(name)) {
-            final String message = getResources().getString(R.string.add_manual_message_empty);
+            final String message = getString(R.string.add_manual_message_empty);
             Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+            return;
         }
 
         getQueue().add(buildRequest(url));
+        mProgressDialog.show();
     }
 
     private RequestQueue getQueue() {
@@ -98,17 +117,34 @@ public class AddManualActivity extends FragmentActivity {
                 .setListener(new Response.Listener<List<Entry>>() {
                     @Override
                     public void onResponse(List<Entry> response) {
-                        Toast.makeText(getApplicationContext(), "リクエスト成功", Toast.LENGTH_SHORT).show();
+                        mProgressDialog.dismiss();
+                        registerApi();
                     }
                 })
                 .setErrorListener(new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        final String message = getResources()
-                                .getString(R.string.add_common_message_request_failed);
+                        mProgressDialog.dismiss();
+                        final String message = getString(R.string.add_common_message_request_failed);
                         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
                     }
                 }).build();
+    }
+
+    private void registerApi() {
+        final ContentValues values = new ContentValues();
+        values.put(EntryApiColumns.COLUMN_URL, mEditUrlText.getText().toString());
+        values.put(EntryApiColumns.COLUMN_NAME, mEditNameText.getText().toString());
+
+        final Uri uri = getContentResolver().insert(EntryApiProvider.getContentUri(), values);
+
+        if (ContentUris.parseId(uri) < 0) {
+            final String message = getString(R.string.add_manual_message_failed_insert);
+            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+        } else {
+            final String message = getString(R.string.add_manual_message_success_insert);
+            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**
