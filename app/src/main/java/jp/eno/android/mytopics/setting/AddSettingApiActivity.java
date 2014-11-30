@@ -19,6 +19,7 @@ import com.android.volley.VolleyError;
 import jp.eno.android.mytopics.R;
 import jp.eno.android.mytopicslibrary.database.SettingApiColumns;
 import jp.eno.android.mytopicslibrary.model.ApiList;
+import jp.eno.android.mytopicslibrary.provider.SettingApiProvider;
 import jp.eno.android.mytopicslibrary.request.ApiListRequest;
 import jp.eno.android.mytopicslibrary.volley.VolleyQueue;
 

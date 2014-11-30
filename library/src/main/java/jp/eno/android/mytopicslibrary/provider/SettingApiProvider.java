@@ -1,4 +1,4 @@
-package jp.eno.android.mytopics.setting;
+package jp.eno.android.mytopicslibrary.provider;
 
 import android.content.ContentProvider;
 import android.content.ContentUris;
@@ -16,7 +16,7 @@ import jp.eno.android.mytopicslibrary.database.SettingApiColumns;
  */
 public class SettingApiProvider extends ContentProvider {
 
-    private static final String AUTHORITY = "jp.eno.android.mytopics.setting";
+    private static final String AUTHORITY = "jp.eno.android.mytopicslibrary.provider";
 
     private static final int MATCH_ALL = 0;
 

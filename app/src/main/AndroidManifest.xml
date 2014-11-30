@@ -30,8 +30,8 @@
             android:label="@string/add_common_label"/>
 
         <provider
-            android:name="jp.eno.android.mytopics.setting.SettingApiProvider"
-            android:authorities="jp.eno.android.mytopics.setting"
+            android:name="jp.eno.android.mytopicslibrary.provider.SettingApiProvider"
+            android:authorities="jp.eno.android.mytopicslibrary.provider"
             android:exported="false" />
     </application>
 
