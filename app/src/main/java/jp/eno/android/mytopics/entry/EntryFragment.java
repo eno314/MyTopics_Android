@@ -31,6 +31,8 @@ import jp.eno.android.mytopicslibrary.volley.VolleyQueue;
  */
 public class EntryFragment extends Fragment {
 
+    private static final String ARGUMENT_API_URL = "ARGUMENT_API_URL";
+
     private EntryListAdapter mAdapter;
     private EntryRequest mRequest;
 
@@ -60,6 +62,10 @@ public class EntryFragment extends Fragment {
         if (needRefresh()) {
             refresh();
         }
+    }
+
+    private String getApiUrl() {
+        return getArguments().getString(ARGUMENT_API_URL);
     }
 
     /**
@@ -122,7 +128,7 @@ public class EntryFragment extends Fragment {
     }
 
     private EntryRequest buildRequest() {
-        return new EntryRequest.Builder("http://api-nyantarou.ddo.jp/api/rss/rss1/v1.json")
+        return new EntryRequest.Builder(getApiUrl())
                 .setListener(new Response.Listener<List<Entry>>() {
                     @Override
                     public void onResponse(List<Entry> response) {
@@ -151,5 +157,19 @@ public class EntryFragment extends Fragment {
                 startActivity(intent);
             }
         };
+    }
+
+    /**
+     * Create a new instance of DetailsFragment, initialized to
+     * show the text at 'index'.
+     */
+    public static EntryFragment newInstance(String apiUrl) {
+        EntryFragment fragment = new EntryFragment();
+
+        Bundle args = new Bundle();
+        args.putString(ARGUMENT_API_URL, apiUrl);
+        fragment.setArguments(args);
+
+        return fragment;
     }
 }

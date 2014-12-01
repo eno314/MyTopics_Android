@@ -77,7 +77,7 @@ public class ManualFragment extends Fragment
 
     @Override
     public void onClickCell(EntryApiDB entryApi) {
-
+        ManualDetailActivity.start(getActivity(), entryApi);
     }
 
     @Override

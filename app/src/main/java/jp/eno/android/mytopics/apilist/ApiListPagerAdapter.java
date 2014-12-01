@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jp.eno.android.mytopics.entry.EntryFragment;
+import jp.eno.android.mytopicslibrary.model.Entry;
 import jp.eno.android.mytopicslibrary.model.EntryApi;
 
 /**
@@ -24,7 +25,8 @@ public class ApiListPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return new EntryFragment();
+        final EntryApi entryApi = mEntryApiList.get(position);
+        return EntryFragment.newInstance(entryApi.url);
     }
 
     @Override
