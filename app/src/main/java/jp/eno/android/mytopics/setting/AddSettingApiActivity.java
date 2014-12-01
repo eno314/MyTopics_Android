@@ -19,6 +19,7 @@ import com.android.volley.VolleyError;
 import jp.eno.android.mytopics.R;
 import jp.eno.android.mytopicslibrary.database.SettingApiColumns;
 import jp.eno.android.mytopicslibrary.model.ApiList;
+import jp.eno.android.mytopicslibrary.provider.SettingApiProvider;
 import jp.eno.android.mytopicslibrary.request.ApiListRequest;
 import jp.eno.android.mytopicslibrary.volley.VolleyQueue;
 
@@ -27,9 +28,6 @@ import jp.eno.android.mytopicslibrary.volley.VolleyQueue;
  */
 public class AddSettingApiActivity extends FragmentActivity
         implements ConfirmAddSettingApiDialog.Listener {
-
-    static final int REQUEST_CODE_CONFIRM_DIALOG = 0;
-    static final int RESULT_CODE_CLICK_POSITIVE = 0;
 
     /**
      * APIのURLの入力用EditText
@@ -82,7 +80,9 @@ public class AddSettingApiActivity extends FragmentActivity
     private void execInsert(String url, ApiList apiList) {
         final long rowId = insertSettingApi(url, apiList.name);
         if (rowId < 0) {
-            showMessage("登録に失敗しました。既に同じAPIが登録されていませんか？");
+            showMessage(getResources().getString(R.string.add_setting_api_message_failed_insert));
+        } else {
+            showMessage(getResources().getString(R.string.add_setting_api_message_success_insert));
         }
     }
 
@@ -138,7 +138,7 @@ public class AddSettingApiActivity extends FragmentActivity
                 .setErrorListener(new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        showMessage(getString(R.string.add_setting_api_message_request_failed));
+                        showMessage(getString(R.string.add_common_message_request_failed));
                     }
                 })
                 .build();

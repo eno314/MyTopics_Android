@@ -10,7 +10,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +24,7 @@ import jp.eno.android.mytopics.R;
 import jp.eno.android.mytopics.apilist.ApiListActivity;
 import jp.eno.android.mytopicslibrary.database.SettingApiColumns;
 import jp.eno.android.mytopicslibrary.model.ApiList;
+import jp.eno.android.mytopicslibrary.provider.SettingApiProvider;
 import jp.eno.android.mytopicslibrary.request.ApiListRequest;
 import jp.eno.android.mytopicslibrary.volley.VolleyQueue;
 

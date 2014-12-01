@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import jp.eno.android.mytopics.R;
+import jp.eno.android.mytopics.manual.AddManualActivity;
 import jp.eno.android.mytopics.setting.AddSettingApiActivity;
 import jp.eno.android.mytopicslibrary.layout.SlidingTabLayout;
 
@@ -14,7 +15,7 @@ import jp.eno.android.mytopicslibrary.layout.SlidingTabLayout;
 public class MainActivity extends FragmentActivity {
 
     @Override
-    protected void onCreate( Bundle savedInstanceState ) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -25,17 +26,22 @@ public class MainActivity extends FragmentActivity {
 
 
     @Override
-    public boolean onCreateOptionsMenu( Menu menu ) {
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected( MenuItem item ) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
         if (id == R.id.action_add_setting_api) {
             AddSettingApiActivity.start(this);
+            return true;
+        }
+
+        if (id == R.id.action_add_manual) {
+            AddManualActivity.start(this);
             return true;
         }
 

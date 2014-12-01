@@ -11,7 +11,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".main.MainActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,15 +20,31 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="jp.eno.android.mytopics.apilist.ApiListActivity" />
+        <activity
+            android:name="jp.eno.android.mytopics.apilist.ApiListActivity"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name="jp.eno.android.mytopics.setting.AddSettingApiActivity"
-            android:label="@string/add_setting_api_label"/>
+            android:label="@string/add_common_label"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="jp.eno.android.mytopics.manual.AddManualActivity"
+            android:label="@string/add_common_label"
+            android:screenOrientation="portrait" />
+
+        <activity android:name="jp.eno.android.mytopics.manual.ManualDetailActivity"
+            android:screenOrientation="portrait"/>
 
         <provider
-            android:name="jp.eno.android.mytopics.setting.SettingApiProvider"
-            android:authorities="jp.eno.android.mytopics.setting"
+            android:name="jp.eno.android.mytopicslibrary.provider.SettingApiProvider"
+            android:authorities="jp.eno.android.mytopicslibrary.provider.settingapiprovider"
+            android:exported="false" />
+
+        <provider
+            android:name="jp.eno.android.mytopicslibrary.provider.EntryApiProvider"
+            android:authorities="jp.eno.android.mytopicslibrary.provider.entryapiprovider"
             android:exported="false" />
     </application>
 
