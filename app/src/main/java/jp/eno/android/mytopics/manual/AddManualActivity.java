@@ -9,7 +9,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
-import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -20,6 +19,9 @@ import com.android.volley.VolleyError;
 
 import java.util.List;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import butterknife.OnClick;
 import jp.eno.android.mytopics.R;
 import jp.eno.android.mytopicslibrary.database.EntryApiColumns;
 import jp.eno.android.mytopicslibrary.model.Entry;
@@ -35,12 +37,12 @@ public class AddManualActivity extends FragmentActivity {
     /**
      * APIのURLの入力用EditText
      */
-    private EditText mEditUrlText;
+    @InjectView(R.id.add_manual_edit_text_url) EditText mEditUrlText;
 
     /**
      * API名入力用のEditText
      */
-    private EditText mEditNameText;
+    @InjectView(R.id.add_manual_edit_text_name) EditText mEditNameText;
 
     /**
      * プログレスダイアログ
@@ -52,19 +54,12 @@ public class AddManualActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_manual);
 
+        ButterKnife.inject(this);
+
         // 最初からソフトウェアキーボードを表示させる
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
 
-        mEditUrlText = (EditText) findViewById(R.id.add_manual_edit_text_url);
         mEditUrlText.setSelection(mEditUrlText.getText().length());
-
-        mEditNameText = (EditText) findViewById(R.id.add_manual_edit_text_name);
-
-        findViewById(R.id.add_manual_button_positive)
-                .setOnClickListener(createPositiveButtonCLickListener());
-
-        findViewById(R.id.add_manual_button_negative)
-                .setOnClickListener(createNegativeButtonClickListener());
 
         mProgressDialog = new ProgressDialog(this);
         mProgressDialog.setTitle(getString(R.string.add_manual_loading_title));
@@ -73,28 +68,11 @@ public class AddManualActivity extends FragmentActivity {
         mProgressDialog.setCancelable(false);
     }
 
-    private View.OnClickListener createPositiveButtonCLickListener() {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onClickPositiveButton();
-            }
-        };
-    }
-
-    private View.OnClickListener createNegativeButtonClickListener() {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        };
-    }
-
     /**
      * 決定ボタンをおした時の処理
      */
-    private void onClickPositiveButton() {
+    @OnClick(R.id.add_manual_button_positive)
+    void onClickPositiveButton() {
         final String url = mEditUrlText.getText().toString();
         final String name = mEditNameText.getText().toString();
 
@@ -106,6 +84,14 @@ public class AddManualActivity extends FragmentActivity {
 
         getQueue().add(buildRequest(url));
         mProgressDialog.show();
+    }
+
+    /**
+     * キャンセルボタンクリック時の処理
+     */
+    @OnClick(R.id.add_manual_button_negative)
+    void onClickNegativeButton() {
+        finish();
     }
 
     private RequestQueue getQueue() {
